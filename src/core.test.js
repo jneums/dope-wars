@@ -23,7 +23,6 @@ describe('newGame()', () => {
       const nextState = newGame(state, days);
 
       expect(nextState).to.equal(Map(state));
-
     });
 
 });
@@ -44,4 +43,15 @@ describe('move()', () => {
         'Bronx'
     ]);
   })
+
+  it('sets prices for drugs', () => {
+    const state = state;
+    const newLocation = 'Ghetto';
+    const nextState = move(state, newLocation);
+
+    expect(nextState.drugs.hashish.get('price')).to.not.equal(0);
+    expect(nextState.drugs.weed.get('price')).to.not.equal(0);
+    expect(nextState.drugs.speed.get('price')).to.not.equal(0);
+  })
+
 } )
