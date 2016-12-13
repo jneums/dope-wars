@@ -9,26 +9,39 @@ chai.use(chaiImmutable);
 // variables though use Map.get() and to set use
 // Map.set()
 import {Map} from 'immutable';
+//import state tree
+import state from './state';
 
 import { newGame } from './core';
+import { move } from './core';
 
-it('begins the game, initializing the state', () => {
-  const state = Map();
-  const days = 30;
-  const nextState = newGame(state, days);
+describe('newGame()', () => {
 
-  expect(nextState).to.equal(Map({
-    currentLocation: 'Bronx',
-    cash: 2000,
-    debt: 5500,
-    bank: 0,
-    day: 0,
-    drugs: {
-      hashish: {
-        qty: 0,
-        price: 0,
-        special: 'normal'
-      } //more drugs will go here...
-    }
-  }))
+    it('begins the game, initializing the state', () => {
+      const state = Map();
+      const days = 30;
+      const nextState = newGame(state, days);
+
+      expect(nextState).to.equal(Map(state));
+
+    });
+
 });
+
+describe('move()', () => {
+
+  it('new currentLocation, old one goes into array', () => {
+    const state = state;
+    const newLocation = 'Ghetto';
+    const nextState = move(state, newLocation);
+
+    expect(nextState.get('currentLocation')).to.equal('Ghetto');
+    expect(nextState.get('otherLocations')).to.equal([
+        'Central Park',
+        'Manhatten',
+        'Coney Island',
+        'Brooklyn',
+        'Bronx'
+    ]);
+  })
+} )
