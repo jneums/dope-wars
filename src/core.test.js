@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 chai.use(chaiImmutable);
+import { expect } from 'chai';
 // immutable helps keep state pure
 // Map is like an object, to access the
 // variables though use Map.get() and to set use
@@ -18,11 +19,11 @@ import { move } from './core';
 describe('newGame()', () => {
 
     it('begins the game, initializing the state', () => {
-      const state = Map();
       const days = 30;
-      const nextState = newGame(state, days);
+      const nextState = newGame(days);
 
       expect(nextState).to.equal(Map(state));
+
     });
 
 });
@@ -53,5 +54,6 @@ describe('move()', () => {
     expect(nextState.drugs.weed.get('price')).to.not.equal(0);
     expect(nextState.drugs.speed.get('price')).to.not.equal(0);
   })
+
 
 } )
